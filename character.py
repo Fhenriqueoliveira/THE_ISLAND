@@ -1,12 +1,12 @@
 import random,pygame
 import time, sys, os
-
+from banner import Banner
 pygame.init() 
 pygame.mixer.init()
 pygame.mixer.music.load('ini.wav') 
 pygame.mixer.music.play()
 pygame.event.wait()
-
+banners = Banner()
 os.system('cls')
 
 danos = [20,20,20,20,40,40,100] #Lista de chance de danos com opçoes de 20, 40 e 100 de dano
@@ -79,14 +79,9 @@ class Character:
             if self.__fome<0: #Se a fome for menor que 0 o personagem morre de fome
                         musica_gameover()
                         input("Mas... acabou morrendo de fome antes de conseguir comer")#Texto informativo sobre o que aconteceu  
-                        os.system("cls") #Limpa o terminal    
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        os.system("cls") #Limpa o terminal
+                        banners.end_banner    
+                        input('Aperte o Enter para sair')
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
         else:
@@ -98,25 +93,15 @@ class Character:
                         musica_gameover()
                         input("Você se preocupou muito em procurar mais comida e morreu de fome pois esqueceu de comer") #Texto informativo sobre o que aconteceu 
                         os.system("cls") #Limpa o terminal
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner    
+                        input('Aperte o Enter para sair')
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
                 else:
                     musica_gameover()
                     input("Você não tinha nenhuma comida e morreu de fome") #Texto informativo sobre o que aconteceu 
                     os.system("cls") #Limpa o terminal
-                    input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                    banners.end_banner    
+                    input('Aperte o Enter para sair')
                     exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
     def procurar_itens(self): #Função para a ação [3] PROCURAR ITENS | As opçoes abaixo so funcionam quando a funçao for chamada
@@ -141,13 +126,8 @@ class Character:
                     musica_gameover()
                     input("VOCÊ SOFREU UM ATAQUE FATAL E MORREU") #Mensagem após o personagem tomar um dano critico e ficar sem vida
                     os.system("cls") #Limpa o terminal
-                    input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                    banners.end_banner    
+                    input('Aperte o Enter para sair')
                     exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
                 else:
                     input("VOCÊ DERROTOU O GRUPO E AINDA PEGOU O ITEM") #Mensagem informativa caso o personagem saia vivo do combate
@@ -168,13 +148,8 @@ class Character:
                         musica_gameover()                       
                         input("Mas... acabou morrendo de fome") #Mensagem informativa caso o personagem morra de fome
                         os.system("cls") #Limpa o terminal
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner    
+                        input('Aperte o Enter para sair')
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
             else:
                 input("Você fugiu e não pegou o item...\nSeja mais corajoso na próxima") #Mensagem caso o jogador opte por fugir do combate
@@ -183,13 +158,8 @@ class Character:
                         musica_gameover()
                         input("Mesmo fugindo a morte chegou para você, que acabou morrendo de fome") #Mensagem informativa caso o personagem morra de fom
                         os.system("cls") #Limpa o terminal
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner    
+                        input('Aperte o Enter para sair')
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
         
         elif achar_item == 3: 
@@ -203,13 +173,8 @@ class Character:
                 musica_gameover()                
                 input("Mesmo com toda sua sorte você morreu de fome pois esqueceu de comer") #Mensagem informativa caso o personagem morra de fom
                 os.system("cls") #Limpa o terminal
-                input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                banners.end_banner    
+                input('Aperte o Enter para sair')
                 exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER   
         elif achar_item == 4: #Easter Egg escondido, se encontrado ele eleva para 100% todos atributos do personagem , menos os itens que continuam a ser necessário para fugir da ilha.
             input('****Easter Egg**** Parabéns!! Você encontrou uma bola de futebol, seu nome será NIQUE. Nique vai ser seu companheiro nesse desafio, e ele eleva seus suprimentos em 100% ! ')
@@ -224,13 +189,8 @@ class Character:
             if self.__fome<=0:
                     musica_gameover()
                     input("Você ficou muuito obcecado por itens e esqueceu de comer então acabou morrendo de fome") #Mensagem informativa caso o personagem morra de fome
-                    input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                    banners.end_banner    
+                    input('Aperte o Enter para sair')
                     exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
     def medicar(self): #Função para a ação [4] MEDICAR | As opçoes abaixo so funcionam quando a funçao for chamada
@@ -254,30 +214,24 @@ class Character:
         else:
             print("")
             input("Você conseguiu dormir, mas devido a sua fome você não conseguiu ter forças para se levantar e acabou morrendo") #Texto informativo caso o personagem durma mas morra de fome
-            input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+            banners.end_banner    
+            input('Aperte o Enter para sair')
             musica_gameover()
             exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
     def fugir(self): #Função para a ação [6] FUGIR | As opçoes abaixo so funcionam quando a funçao for chamada
         if self.__itens == self.__itensMax:
             musica_win() 
-            final = ("Após uma árdua luta contra macacos furiosos e contra a fome durante essa jornada você finalmente conseguiu juntar todos os itens necessários para construir uma pequena jangada para fugir.Desengonçadamente você progrediu rápido e na construção da sua jangada vc finalmente  termina com a angustia de morrer sozinho, orgulhoso de sua criação você para e admira um pouco sua incrivel criação e o coloca no mar. Você se despede da ilha relembrando todo os momentos de luta e medo que passou mas esboça um sorriso no rosto após perceber que tudo já passou e que agora você finalmente voltará para sua vida normal") 
+            final = ("Após uma árdua luta contra macacos furiosos e contra a fome durante essa jornada você finalmente conseguiu juntar todos os itens necessários para construir uma pequena jangada para fugir.Desengonçadamente você progrediu rápido e na construção da sua jangada vc finalmente  termina com a angustia de morrer sozinho, orgulhoso de sua criação você para e admira um pouco sua incrivel criação e o coloca no mar. Você se despede da ilha relembrando todo os momentos de luta e medo que passou mas esboça um sorriso no rosto após perceber que tudo já passou e que agora você finalmente voltará para sua vida normal, e consiguirá levar sua filha ao altar") 
             #Se o personagem estiver com os 3 itens ele conseguirá fugir da ilha            
-            #for l in list(final):
-                #print(i, end='')
+            for l in list(final):
+                print(l, end='')
                 #O stdout só é atualizado quando há nova linha e como nós estamos mandando tudo na mesma é preciso forçar a atualização.
-                #sys.stdout.flush()
-                #time.sleep(0.05)
+                sys.stdout.flush()
+                time.sleep(0.03)
             input('Aperte ENTER...')           
             exit()
 
-            #Melhorar o final
         else:
             if self.__itens == 0:
                 print("")

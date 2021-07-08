@@ -8,114 +8,148 @@ import pygame
 
 import time, sys, os
 from character import Character
-
-
+from character_ing import Character_ing
+from tutorial import Tutorial
+from banner import Banner
 
 if __name__ == "__main__":
-    def tutorial():
-        os.system("cls")
-        print("=-"*25)
-        print("==================== TUTORIAL ====================")
-        print("=-"*25)
-        print('''       Nesse jogo seu objetivo é sobreviver em uma ilha 
-                    deserta, coletando itens para fugir e se alimentar enquanto
-                      tenta sobreviver as surpresas que essa ilha lhe reserva''')
-        input("\nAperte enter para continuar o tutorial...")
-        os.system("cls")
-        print("")
-        print("O menu abaixo representa as escolhas que podem ser feitas durante o jogo")
-        print("=-"*25)
-        print('''        [1] - COMER 🍗
-        [2] - PROCURAR COMIDA 👀
-        [3] - PROCURAR ITENS 🎒
-        [4] - SE MEDICAR 💊
-        [5] - DORMIR 😴
-        [6] - FUGIR 🏃
-        [7] - SAIR DO JOGO 🚪''')
-        print("=-"*25)
-        print("")
-        input("\nAperte enter para continuar...")
-        os.system("cls")
-        
-        print("A opção [1] COMER faz com que sua vida regenere em 20 unidades")
-        print("A opção [2] PROCURAR COMIDA faz com que o personagem saia em busca de comida")
-        print("A opção [3] PROCURAR ITENS faz com que o personagem saia em busca de itens")
-        print("A opção [4] SE MEDICAR faz com que sua vida regenere totalmente")
-        print("A opção [5] DORMIR faz com sua vida regenere em 10 unidades e passe para o próximo dia")
-        print("A opção [6] FUGIR faz com que seu personagem tente fugir da ilha")
-        print("A opção [7] SAIR DO JOGO fecha o jogo e apresenta os créditos")
-        print("")
-        input("\nAperte enter para iniciar o jogo...")
-
+    
     while True:
         personagem = Character()
-        print(''' d888888b db   db d88888b   d888888b .d8888. db       .d8b.  d8b   db d8888b. 
- `~~88~~' 88   88 88'         `88'   88'  YP 88      d8' `8b 888o  88 88  `8D 
-    88    88ooo88 88ooooo      88    `8bo.   88      88ooo88 88V8o 88 88   88 
-    88    88~~~88 88~~~~~      88      `Y8b. 88      88~~~88 88 V8o88 88   88 
-    88    88   88 88.         .88.   db   8D 88booo. 88   88 88  V888 88  .8D 
-    YP    YP   YP Y88888P   Y888888P `8888Y' Y88888P YP   YP VP   V8P Y8888D' 
-                                                                             ''')
+        persongem_ing = Character_ing()
+        tutoriais = Tutorial()
+        banner = Banner()
+        banner.title_banner()
 
-            #Musica de suspense
-
-        input("\nAperte enter para continuar...")
-        
+        input("\nAperte ENTER para continuar...")
+        os.system("cls")
         print("")
-        ver_tutorial = input("Deseja ver o tutorial? [S/N]: ").upper()
-        while ver_tutorial!= "S" and ver_tutorial!="N":
+        print("Escolha a linguagem do jogo\n[1] INGLÊS \n[2] PORTUGUÊS")
+        lingua = int(input("Sua escolha : "))
+
+        print("")
+        if lingua == 2:
+            os.system("cls")
             ver_tutorial = input("Deseja ver o tutorial? [S/N]: ").upper()
-            print("Digite a opçao correta [S/N]")
+        elif lingua == 1:
+            os.system("cls")
+            ver_tutorial = input("Do you wanna see the tutorial? [Y/N]").upper()
+
+        while ver_tutorial!= "S" and ver_tutorial!="N" and ver_tutorial!="Y":
+            print("")
+            if lingua == 2:
+                os.system("cls")
+                print("Digite a opçao correta [S/N]")
+                ver_tutorial = input("Deseja ver o tutorial? [S/N]: ").upper()
+                
+            elif lingua == 1:
+                os.system("cls")
+                print("Write correctly [Y/N]")
+                ver_tutorial = input("Do you wanna see the tutorial? [Y/N]: ").upper()
+                
         if ver_tutorial == "S":
-            tutorial()
+            tutoriais.tutorial_pt()
+        elif ver_tutorial == "Y":
+            tutoriais.tutorial_ing()
+
         os.system("cls")
 
-        frase = ("Após 6 meses viajando a negócios, você recebeu a noticia que poderia voltar para casa, e chegaria a tempo do casamento da sua filha... Mau sabia que essa viagem mudaria completamente sua vida...\nO avião que você estava sofreu um acidente durante uma tempestade e caiu em uma ilha aparentemente deserta, seu objetivo é sobreviver e escapar da ilha para chegar em tempo de levar sua filha ao altar.")
+        if lingua == 2:
+            frase = ("Após 6 meses viajando a negócios, você recebeu a noticia que poderia voltar para casa, e chegaria a tempo do casamento da sua filha... Mau sabia que essa viagem mudaria completamente sua vida...\nO avião que você estava sofreu um acidente durante uma tempestade e caiu em uma ilha aparentemente deserta, seu objetivo é sobreviver e escapar da ilha para chegar em tempo de levar sua filha ao altar.")
 
-        for i in list(frase):
-            print(i, end='')
-           # O stdout só é atualizado quando há nova linha e como nós estamos mandando tudo na mesma é preciso forçar a atualização.
-            sys.stdout.flush()
-            time.sleep(0.05)
+            #for i in list(frase):
+                #print(i, end='')
+                #O stdout só é atualizado quando há nova linha e como nós estamos mandando tudo na mesma é preciso forçar a atualização.
+                #sys.stdout.flush()
+                #time.sleep(0.05)
+            print("")
+            input("\nAperte ENTER para iniciar o jogo...")
 
-        input("\nAperte enter para iniciar o jogo...")
+        elif lingua == 1:
+            frase = ("asdasdasdasdasdasda")
+
+            #for i in list(frase):
+                #print(i, end='')
+                #O stdout só é atualizado quando há nova linha e como nós estamos mandando tudo na mesma é preciso forçar a atualização.
+                #sys.stdout.flush()
+                #time.sleep(0.05)
+            print("")
+            input("\nPress ENTER to start the game...")
         os.system("cls")
 
         while True:
-            personagem.status()
+            if lingua == 1:
+                persongem_ing.status_ing()
+                print("=-"*25)
+                print('''           [1] - EAT 🍗
+                [2] - LOOK FOR FOOD 👀
+                [3] - LOOK FOR ITENS 🎒
+                [4] - HEAL UP 💊
+                [5] - SLEEP 😴
+                [6] - ESCAPE 🏃
+                [7] - LEAVE THE GAME 🚪''')
+                print("=-"*25)
+                escolha = int(input("Write your action : "))
 
-            print("=-"*25)
-            print('''            [1] - COMER 🍗
-            [2] - PROCURAR COMIDA 👀
-            [3] - PROCURAR ITENS 🎒
-            [4] - SE MEDICAR 💊
-            [5] - DORMIR 😴
-            [6] - FUGIR 🏃
-            [7] - SAIR DO JOGO 🚪''')
-            print("=-"*25)
-            escolha = int(input("Digite sua açao : "))
+            elif lingua == 2:
+                personagem.status()
+                print("=-"*25)
+                print('''            [1] - COMER 🍗
+                [2] - PROCURAR COMIDA 👀
+                [3] - PROCURAR ITENS 🎒
+                [4] - SE MEDICAR 💊
+                [5] - DORMIR 😴
+                [6] - FUGIR 🏃
+                [7] - SAIR DO JOGO 🚪''')
+                print("=-"*25)
+                escolha = int(input("Digite sua açao : "))
 
             if escolha == 1:
-                personagem.comer()
-               
+                if lingua == 1:
+                    persongem_ing.comer_ing()
+                elif lingua == 2:
+                    persongem.comer()
+
             elif escolha == 2:
-                personagem.procurar_comida()
+                if lingua == 1:
+                    persongem_ing.procurar_comida_ing()
+                elif lingua == 2:
+                    personagem.procurar_comida()
 
             elif escolha == 3:
-                personagem.procurar_itens()
+                if lingua == 1:
+                    persongem_ing.procurar_itens_ing()
+                elif lingua == 2:
+                    personagem.procurar_itens()
 
             elif escolha == 4:
-                personagem.medicar()
+                if lingua == 1:
+                    persongem_ing.medicar_ing()
+                elif lingua == 2:
+                    personagem.medicar()
 
             elif escolha == 5:
-                personagem.dormir()
+                if lingua == 1:
+                    persongem_ing.dormir_ing()
+                elif lingua == 2:
+                    personagem.dormir()
 
             elif escolha == 6:
-                personagem.fugir()
+                if lingua == 1:
+                    persongem_ing.fugir_ing()
+                elif lingua == 2:
+                    personagem.fugir()
                     
             elif escolha == 7:
-                personagem.sair()
+                if lingua == 1:
+                    persongem_ing.sair_ing()
+                elif lingua == 2:
+                    personagem.sair()
             else:
-                input('Opção Invalida! Por favor escolha uma ação do menu')    
+                print("")
+                if lingua == 1:
+                    input('Invalid Option! Please choose a valid action')  
+                elif lingua == 2:
+                    input('Opção Invalida! Por favor escolha uma ação do menu')    
             os.system("cls")        
 
