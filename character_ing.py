@@ -1,12 +1,11 @@
-import random,pygame
+import random
 import time, sys, os
+from music import Musica
+from banner import Banner
 
-pygame.init() 
-pygame.mixer.init()
-pygame.mixer.music.load('ini.wav') 
-pygame.mixer.music.play()
-pygame.event.wait()
 
+musicas = Musica()
+banners = Banner()
 os.system('cls')
 
 danos = [20,20,20,20,40,40,100] #Lista de chance de danos com opçoes de 20, 40 e 100 de dano
@@ -14,14 +13,6 @@ comida = [1,1,1,1,1,2,2] #Lista de chance de achar comida 1 = Achar comida e 2 =
 item = [1,1,1,1,1,1,2,2,2,2,2,3,3,3,4] #Lista de chance de achar item, não achar nada ,achar remédio e achar o EasterEgg
 mar = [40,40,40,40,40,100] #Dano causado pelo ataque no mar
 
-def musica_win():
-    pygame.mixer.music.load('winner.wav') 
-    pygame.mixer.music.play()
-    pygame.event.wait()
-def musica_gameover():
-    pygame.mixer.music.load('final.mp3') 
-    pygame.mixer.music.play()
-    pygame.event.wait()  
    
 
 class Character_ing:
@@ -76,16 +67,10 @@ class Character_ing:
                 input("But your backpack was already full of bananas so your search didn't do any good") #Texto informativo caso o personagem esteja com a mochila cheia de comida
             self.__fome -= 20 #Ao sair para buscar comida o personagem perde 20 de fome
             if self.__fome<0: #Se a fome for menor que 0 o personagem morre de fome
-                        musica_gameover()
+                        musicas.musica_gameover()
                         input("But...you starved to death")#Texto informativo sobre o que aconteceu  
                         os.system("cls") #Limpa o terminal    
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner()
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
         else:
@@ -94,28 +79,16 @@ class Character_ing:
             self.__fome -= 20 #Ao não conseguir achar comida o personagem também perde 20 de fome
             if self.__fome<0: #Se a fome for menor que 0 o personagem morrre de fome
                 if self.__banana>0:                    
-                        musica_gameover()
+                        musicas.musica_gameover()
                         input("You worried a lot about looking for more food and starved because you forgot to eat") #Texto informativo sobre o que aconteceu 
                         os.system("cls") #Limpa o terminal
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner()
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
                 else:
-                    musica_gameover()
+                    musicas.musica_gameover()
                     input("You didn´t have food and starved to death") #Texto informativo sobre o que aconteceu 
                     os.system("cls") #Limpa o terminal
-                    input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                    banners.end_banner()
                     exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
     def procurar_itens_ing(self): #Função para a ação [3] PROCURAR ITENS | As opçoes abaixo so funcionam quando a funçao for chamada
@@ -138,78 +111,58 @@ class Character_ing:
                 print("")
                 print(f"You suffered {dano} of damage") #Texto que informa quanto de dano o personagem sofreu
                 if self.__vida<=0:
-                    musica_gameover()
+                    musicas.musica_gameover()
                     input("YOU RECEIVED A FATAL ATACK AND DIED") #Mensagem após o personagem tomar um dano critico e ficar sem vida
                     os.system("cls") #Limpa o terminal
-                    input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                    banners.end_banner()
                     exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
                 else:
                     input("YOU DEFEATED THEM AND GOT THE ITEM") #Mensagem informativa caso o personagem saia vivo do combate
                     if self.__itens<3:
                         if self.__itens == 0:
+                            print("")
                             input('Now you have a ROPE. It will be helpful in your escape from the island.')
                             self.__itens += 1 #Personagem adquire um item que é útil para a fuga
                         elif self.__itens ==1:
+                            print("")
                             input('Now you have some WOODS. WOOD will be very useful along with ROPE in your escape from the island.')    
                             self.__itens += 1
                         elif self.__itens ==2:
+                            print("")
                             input('You found a BED SHEET! This item is very useful to create a boat sail. hmmm i think you know what make with this itens, right!?')    
                             self.__itens += 1   
                     else:
                         input("But your figth wasn´t useful... Your backpack was full") #Texto informativo caso o personagem já esteja lotado de remédios
                     self.__fome -= 20 #Personagem perde 20 de fome 
                     if self.__fome<=0:
-                        musica_gameover()                       
+                        musicas.musica_gameover()                       
                         input("But... you starved to death") #Mensagem informativa caso o personagem morra de fome
                         os.system("cls") #Limpa o terminal
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner()
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
             else:
                 input("You ran and didn't took the item...\nBe brave in the next time") #Mensagem caso o jogador opte por fugir do combate
                 self.__fome -= 20 #Personagem perde 20 de fome
                 if self.__fome<=0:
-                        musica_gameover()
+                        musicas.musica_gameover()
                         input("You ran, but you starved to death") #Mensagem informativa caso o personagem morra de fom
                         os.system("cls") #Limpa o terminal
-                        input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                        banners.end_banner()
                         exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
         
         elif achar_item == 3: 
+            print("")
             input("You was very lucky, you found a medicine") #Mensagem informativa caso o personagem ache um remédio
             self.__fome -= 20 #Personagem perde 20 de fome 
             if self.__remedio<self.__remedioMax:
                 self.__remedio+=1 #Personagem adquire mais um remédio caso o espaço da mochila destino para remédios não esteja cheio
             else:
                 input("You was very lucky, you found a medicine... but you was very unlucky because your backpack was full") #Texto informativo caso o personagem já esteja cheio de remédios
-            if self.__vida<0:
-                musica_gameover()                
+            if self.__fome<0:
+                musicas.musica_gameover()                
                 input("You was very lucky, you found a medicine... but you starved to death because you forgot to eat") #Mensagem informativa caso o personagem morra de fom
                 os.system("cls") #Limpa o terminal
-                input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                banners.end_banner()
                 exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER   
         elif achar_item == 4: #Easter Egg escondido, se encontrado ele eleva para 100% todos atributos do personagem , menos os itens que continuam a ser necessário para fugir da ilha.
             input('****Easter Egg**** Congratulations!! You found a soccer ball, his name will be NIQUE. Nique will be your partner on this journey, your suprements and stats are in the max stats now.')
@@ -222,15 +175,9 @@ class Character_ing:
             input("You leave to look for itens and didnt find nothing") #Mensagem informativa caso o personagem não ache nenhum item
             self.__fome -= 20 #Personagem perde 20 de fome
             if self.__fome<=0:
-                    musica_gameover()
+                    musicas.musica_gameover()
                     input("You got really obsessed with items and forgot to eat so you ended up starving") #Mensagem informativa caso o personagem morra de fome
-                    input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
+                    banners.end_banner()
                     exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
     def medicar_ing(self): #Função para a ação [4] MEDICAR | As opçoes abaixo so funcionam quando a funçao for chamada
@@ -254,23 +201,17 @@ class Character_ing:
         else:
             print("")
             input("You managed to sleep, but due to your hunger you didn't have the strength to get up and ended up dying") #Texto informativo caso o personagem durma mas morra de fome
-            input(''' d888b   .d8b.  .88b  d88. d88888b    .d88b.  db    db d88888b d8888b. 
-88' Y8b d8' `8b 88'YbdP`88 88'       .8P  Y8. 88    88 88'     88  `8D 
-88      88ooo88 88  88  88 88ooooo   88    88 Y8    8P 88ooooo 88oobY' 
-88  ooo 88~~~88 88  88  88 88~~~~~   88    88 `8b  d8' 88~~~~~ 88`8b   
-88. ~8~ 88   88 88  88  88 88.       `8b  d8'  `8bd8'  88.     88 `88. 
- Y888P  YP   YP YP  YP  YP Y88888P    `Y88P'     YP    Y88888P 88   YD                         
-                        ''')
-            musica_gameover()
+            banners.end_banner()
+            musicas.musica_gameover()
             exit() #Mensagem de GAME OVER e depois o jogo fecha ao apertar ENTER
 
     def fugir_ing(self): #Função para a ação [6] FUGIR | As opçoes abaixo so funcionam quando a funçao for chamada
         if self.__itens == self.__itensMax:
-            musica_win() 
+            musicas.musica_win() 
             final = ("After an arduous fight against angry monkeys and hunger during this journey you finally managed to gather all the necessary items to build a small raft to escape. You awkwardly progressed fast and in building your raft you finally end with the anguish of dying alone, proud of your creation you stop and admire your incredible creation and put it in the sea. You say goodbye to the island remembering all the moments of struggle and fear you went through but you have a smile on your face after realizing that everything has passed and that now you will finally return to your normal life") 
             #Se o personagem estiver com os 3 itens ele conseguirá fugir da ilha            
             for l in list(final):
-                print(i, end='')
+                print(l, end='')
                 #O stdout só é atualizado quando há nova linha e como nós estamos mandando tudo na mesma é preciso forçar a atualização.
                 sys.stdout.flush()
                 time.sleep(0.05)
@@ -287,7 +228,8 @@ class Character_ing:
                 self.__vida -= dano_mar
                 if self.__vida<=0:
                     input("And ended up drowning")
-                    #GAME OVER
+                    banners.end_banner()
+                    musicas.musica_gameover
                 else:
                     input("Even though you almost drowned, you stayed alive. It's better to think more about your next actions")
 
@@ -310,7 +252,8 @@ class Character_ing:
 
                     if self.__vida<=0:
                         input("After a long time trying to escape you end up getting tired and the shark catches you...")
-                    #GAME OVER
+                        banners.end_banner()
+                        musicas.musica_gameover()
                     else:
                         input("After a lot of dedication on your escape you finally manage to escape the shark")
             if self.__itens == 2:
@@ -324,7 +267,8 @@ class Character_ing:
                 if tubarao_aparece == 1:
                     self.__vida = 0
                     input("So you had the stupid idea to fight them all... And you obviously ended up dying")
-                    #GAME OVER
+                    banners.end_banner()
+                    musicas.musica_gameover()
                 if tubarao_aparece == 2:
                     self.__itens = 0
                     input("Your escape was a success, until you realized that the raft you created with all the items you gathered were devoured by sharks.")
