@@ -5,23 +5,27 @@ class Tutorial:
         os.system("cls")
         print("=-"*25)
         print("==================== TUTORIAL ====================")
-        print("=-"*25)
+        print("")
         print('''Nesse jogo seu objetivo é sobreviver em uma ilha 
-        deserta, coletando itens para fugir e se alimentar 
-        enquanto tenta sobreviver as surpresas que essa 
-        ilha lhe reserva''')
-        input("\nAperte enter para continuar o tutorial...")
+deserta, coletando itens para fugir e se alimentar 
+enquanto tenta sobreviver as surpresas que essa 
+ilha lhe reserva.''')
+        print("")
+        print("=-"*25)
+        input("\nAperte ENTER para continuar o tutorial...")
         os.system("cls")
         print("")
         print("O menu abaixo representa as escolhas que podem ser feitas durante o jogo")
         print("=-"*25)
-        print('''[1] - COMER 🍗
+        print("")
+        print('''        [1] - COMER 🍗
         [2] - PROCURAR COMIDA 👀
         [3] - PROCURAR ITENS 🎒
         [4] - SE MEDICAR 💊
         [5] - DORMIR 😴
         [6] - FUGIR 🏃
         [7] - SAIR DO JOGO 🚪''')
+        print("")
         print("=-"*25)
         print("")
         input("\nAperte enter para continuar...")
@@ -40,18 +44,20 @@ class Tutorial:
     def tutorial_ing(ver_tutorial): #Função que exibe o tutorial em inglês
         os.system("cls")
         print("=-"*25)
+        print("")
         print("==================== TUTORIAL ====================")
-        print('''In this game your objective is to survive on an island.
-        deserted, collecting items to escape and feed
-        while trying to survive the surprises that this
-        island reserves for you''')
+        print('''In this game your objective is to survive on an 
+island.deserted, collecting items to escape and 
+feed while trying to survive the surprises that 
+this island reserves for you.''')
+        print("")
         print("=-"*25)
         input("\nPress ENTER to continue...")       
         os.system("cls")
         print("")
         print("The menu bellow represents the choices that can be made during the game.")
         print("=-"*25)
-        print('''[1] - EAT 🍗
+        print('''        [1] - EAT 🍗
         [2] - LOOK FOR FOOD 👀
         [3] - LOOK FOR ITENS 🎒
         [4] - HEAL UP 💊

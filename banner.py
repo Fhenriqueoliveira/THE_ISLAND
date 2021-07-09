@@ -1,10 +1,13 @@
 from art import *
+import time, sys, os
+
 class Banner:
     
     def __init__(self):
         pass
 
     def title_banner(self):
+        
         a = text2art ( "=====THE  ISLAND=====",font ="UNIC" )
         print(a)
         print("""                                
